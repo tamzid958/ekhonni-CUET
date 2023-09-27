@@ -1,7 +1,7 @@
 package com.ekhonni.backend.repository;
 
 import com.ekhonni.backend.model.Bidding;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface BiddingRepository extends JpaRepository<Bidding, Long>{
+public interface BiddingRepository extends CrudRepository<Bidding, Long> {
 }

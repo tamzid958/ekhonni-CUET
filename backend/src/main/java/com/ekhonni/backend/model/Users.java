@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -26,8 +24,9 @@ public class Users extends BaseEntity<Long> {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING) // Use EnumType.STRING to store enum values as strings in the database
     @Column(name = "user_type")
-    private String userType;
+    private UserType userType;
 
     @Column(name = "nid")
     private String nid;
