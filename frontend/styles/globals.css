@@ -24,3 +24,7 @@ a {
     background: black;
   }
 }
+nav {
+  text-align: center;
+  font-style: italic;
+}
