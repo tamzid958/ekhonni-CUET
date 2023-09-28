@@ -11,7 +11,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class Users extends BaseEntity<Long> {
+public class User extends BaseEntity<Long> {
     @Column(name = "name")
     private String name;
 

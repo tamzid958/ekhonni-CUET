@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Setter
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "products")
-public class Products extends BaseEntity<Long> {
+public class Product extends BaseEntity<Long> {
     @Column(name = "name")
     private String name;
 
@@ -23,6 +24,6 @@ public class Products extends BaseEntity<Long> {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "seller_id")
-    private Long sellerId;
+    @ManyToOne
+    private User seller;
 }
