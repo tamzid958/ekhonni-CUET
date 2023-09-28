@@ -1,8 +1,8 @@
 package com.ekhonni.backend.service;
 
-import com.ekhonni.backend.model.Users;
+import com.ekhonni.backend.model.User;
 
 public interface UserService {
-    Users registerUser(Users user);
-    Users loginUser(String email,String password);
+    User registerUser(User user);
+    User loginUser(String email,String password);
 }

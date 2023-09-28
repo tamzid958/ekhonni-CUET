@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface UserRepository extends CrudRepository<User, Long> {
-    Users findByEmail(String email);
+    User findByEmail(String email);
 
 }

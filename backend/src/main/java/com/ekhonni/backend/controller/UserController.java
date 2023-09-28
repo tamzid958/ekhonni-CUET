@@ -1,7 +1,6 @@
 package com.ekhonni.backend.controller;
 
-import com.ekhonni.backend.model.UserType;
-import com.ekhonni.backend.model.Users;
+import com.ekhonni.backend.model.User;
 import com.ekhonni.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +15,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody Users user) {
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
         // Set the UserType from the request
 
-        Users registeredUser = userService.registerUser(user);
+        User registeredUser = userService.registerUser(user);
         return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Users> loginUser(@RequestBody Users user) {
-        Users _user = userService.loginUser(user.getEmail(),user.getPassword());
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        User _user = userService.loginUser(user.getEmail(),user.getPassword());
         if (_user != null) {
             return new ResponseEntity<>(_user, HttpStatus.OK);
         }
