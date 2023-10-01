@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Button from '../components/button'
+import Login from './login'
+import Register from './register'
 
 export default function Home() {
   return (
@@ -21,6 +24,9 @@ export default function Home() {
           <code className={styles.code}>pages/index.js</code>
         </p>
 
+        <Button/>
+        <Login/>
+        <Register/>
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -51,6 +57,9 @@ export default function Home() {
           </a>
         </div>
       </main>
+     
+    
+
 
       <footer className={styles.footer}>
         <a
