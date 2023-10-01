@@ -9,4 +9,8 @@ function button() {
   );
 }
 
+<<<<<<< HEAD
 export default button;
+=======
+export default button;
+>>>>>>> origin/feature/authentication-pages
