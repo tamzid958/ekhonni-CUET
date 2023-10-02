@@ -105,8 +105,7 @@ function Register() {
     userType: 'BUYER',
     nid: '',
     address: '',
-    postCode: '',
-    district: '',
+
   });
 
   const handleChange = (e) => {
@@ -133,8 +132,7 @@ function Register() {
         userType: 'BUYER',
         nid: '',
         address: '',
-        postCode: '',
-        district: '',
+
       });
     } catch (error) {
       console.error('Registration failed', error);
@@ -231,27 +229,7 @@ function Register() {
             />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridPostCode">
-            <Form.Label>Post Code</Form.Label>
-            <Form.Control
-              type="text"
-              name="postCode"
-              placeholder="Enter post code"
-              value={formData.postCode}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridDistrict">
-            <Form.Label>District</Form.Label>
-            <Form.Control
-              type="text"
-              name="district"
-              placeholder="Enter district"
-              value={formData.district}
-              onChange={handleChange}
-            />
-          </Form.Group>
+         
         </Row>
 
         <Button variant="primary" type="submit">
