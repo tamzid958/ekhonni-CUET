@@ -20,15 +20,9 @@ function Header() {
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="#pricing">Post your AD</Nav.Link>
-            
           </Nav>
-          <div className="d-flex w-50">
-            <SearchBar />
-          </div>
         </Container>
-        
       </Navbar>
-      
       <br />
      
     </>
