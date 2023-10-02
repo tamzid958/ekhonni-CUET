@@ -9,7 +9,7 @@ function ColorfulCarousel()  {
       <Carousel.Item interval={1000}>
       <div className="text-center"> { }
         <img
-          style={{ width: '71%', height: '71%' }} 
+          style={{ width: '50%', height: '50%' }} 
           src="https://static.startuptalky.com/2022/06/Product-Image-Guide-for-Your-eCommerce-Store-StartupTalky--1-.jpg"
           alt=" "
         />
@@ -24,7 +24,7 @@ function ColorfulCarousel()  {
       <Carousel.Item>
       <div className="text-center"> { }
         <img
-          style={{ width: '80%', height: '80%' }}
+          style={{ width: '50%', height: '50%' }}
           src="https://gepard.io/uploads/product-images-for-ecommerce-websites.jpg"
           alt=" "
         />
@@ -37,7 +37,7 @@ function ColorfulCarousel()  {
       <Carousel.Item>
       <div className="text-center"> { }
         <img
-        style={{ width: '71%', height: '71%' }}
+        style={{ width: '50%', height: '50%' }}
           src="https://www.stockvault.net/data/2020/09/14/278904/thumb16.jpg"
           alt=" "
         

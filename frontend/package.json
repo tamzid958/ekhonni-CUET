@@ -9,25 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "bootstrap": "^5.3.2",
-    "next": "13.5.2",
-    "react": "18.2.0",
-    "react-bootstrap": "^2.9.0",
-=======
-=======
->>>>>>> 3d0217956183b3c9eb0b7bf377f081e5c4259783
+
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.11",
+    "@mui/material": "^5.14.11",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "next": "13.5.2",
     "react": "18.2.0",
     "react-bootstrap": "^2.8.0",
-<<<<<<< HEAD
->>>>>>> origin/feature/authentication-pages
-=======
->>>>>>> 3d0217956183b3c9eb0b7bf377f081e5c4259783
     "react-dom": "18.2.0"
+
   },
   "devDependencies": {
     "eslint": "8.50.0",

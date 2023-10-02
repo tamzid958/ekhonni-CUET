@@ -3,19 +3,18 @@ import { Container, Row, Col, Image, Card, Form, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import button from '../../components/button';
-const ProductDetails = ({ productName, price, seller, contact, description,category, productDescription}) => {
+const ProductDetails = ({ productName, price, seller, contact, description, category, productDescription }) => {
   return (
     <Container>
-     <Header/>
+      <Header />
       <Row>
         {/* Product Image */}
         <Col md={6}>
           <Image
-           src="https://www.deshify.com/images/thumbs/0015421_lige-men-watches-waterproof-multifunction-wrist-watch.jpeg"
-           style={{borderRadius: '8px' , width: '75%', height: '75%' }} 
-           fluid
-         />
+            src="https://www.deshify.com/images/thumbs/0015421_lige-men-watches-waterproof-multifunction-wrist-watch.jpeg"
+            style={{ borderRadius: '8px', width: '75%', height: '75%' }}
+            fluid
+          />
         </Col>
 
         {/* Product Details */}
@@ -30,7 +29,7 @@ const ProductDetails = ({ productName, price, seller, contact, description,categ
           <p>{description}</p>
         </Col>
       </Row>
- 
+
       <Row>
         <Col>
           <h3>Seller</h3>
@@ -41,8 +40,8 @@ const ProductDetails = ({ productName, price, seller, contact, description,categ
             <Button variant="primary" type="submit" style={{ marginLeft: '10px' }}>
               Rejected
             </Button>
-          </Form> 
-           
+          </Form>
+
         </Col>
       </Row>
 
@@ -61,7 +60,7 @@ const ProductDetails = ({ productName, price, seller, contact, description,categ
           </Form>
         </Col>
       </Row>
-      <Footer/>
+      <Footer />
     </Container>
   );
 };
