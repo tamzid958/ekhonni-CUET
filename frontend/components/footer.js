@@ -2,13 +2,10 @@ import React, { Fragment } from 'react';
 
 const Footer = () => {
   return (
-    <Fragment>
-      <footer className="bg-dark text-light">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4">
+    <div className="row bg-dark p-5">
+            <div className="col-md-4 col-sm-6">
               <div className="footer-section">
-                <h2>Support</h2>
+                <h2 className='text-white'>Support</h2>
                 <ul>
                   <li><a href="#">Help</a></li>
                   <li><a href="#">Advisories</a></li>
@@ -17,9 +14,9 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 col-sm-6">
               <div className="footer-section">
-                <h2>Company</h2>
+                <h2 className='text-white'>Company</h2>
                 <ul>
                   <li><a href="#">About</a></li>
                   <li><a href="#">Blog</a></li>
@@ -27,9 +24,9 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 col-sm-12">
               <div className="footer-section">
-                <h2>Terms & Conditions</h2>
+                <h2 className='text-white'>Terms & Conditions</h2>
                 <ul>
                   <li><a href="#">Policies</a></li>
                   <li><a href="#">Terms of Use</a></li>
@@ -39,9 +36,6 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-    </Fragment>
   );
 };
 

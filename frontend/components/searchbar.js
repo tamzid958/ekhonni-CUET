@@ -10,9 +10,10 @@ export function SearchBar() {
               type="search"
               placeholder="Search"
               className="me-2 rounded-pill"
+              style={{ width: '200px', height: '40px', backgroundColor: 'white' }} 
               aria-label="Search"
             />
-            <Button className="rounded-pill" variant="outline-primary">
+            <Button className="rounded-pill" variant="outline-primary" style={{ height: '40px' }}>
               Search
             </Button>
           </Form>
@@ -21,4 +22,5 @@ export function SearchBar() {
     </Container>
   ); 
 };
+
 export default SearchBar;
