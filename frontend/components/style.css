@@ -4,24 +4,26 @@
     margin: 20;
     box-sizing: border-box;
 }
-body{
+/* body{
 	font-size: 1.7rem;
 	font-family: 'Merriweather Sans', sans-serif;
 	background: #2c3e50;
 	color: #ececec;
 	padding: 2rem;
+} */
+.card-img-top {
+  border-radius: 10px; /* Reduced the border-radius */
+  padding: 10px; /* Reduced the padding */
 }
-.card-img-top{
-    border-radius: 50px;
-    padding: 20px;
+
+.card {
+  border-radius: 10px; /* Reduced the border-radius */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  padding: 10px; /* Reduced the padding */
 }
-.card{
-    border-radius: 30px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-}
-.card-body{
-    padding: 25px;
-    margin-top: -15px;
+.card-body {
+  padding: 15px; /* Adjusted the padding */
+  margin-top: -10px; /* Adjusted the margin-top */
 }
 .btn-primary{
     border-radius: 40px;
@@ -78,4 +80,10 @@ h3,h5{
   .footer-section ul li a:hover {
     text-decoration: underline;
   }
-  
+
+  /* ----button---- */
+  .aa {
+    background-color: blue; 
+    color: white; 
+    
+  }
