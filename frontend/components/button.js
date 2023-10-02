@@ -9,8 +9,8 @@ function button() {
   );
 }
 
-<<<<<<< HEAD
+<<<<<<<< < Temporary merge branch 1
 export default button;
-=======
+=========
 export default button;
->>>>>>> origin/feature/authentication-pages
+>>>>>>>>> Temporary merge branch 2

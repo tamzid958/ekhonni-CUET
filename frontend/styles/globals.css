@@ -25,11 +25,14 @@ a {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 nav {
   text-align: center;
   font-style: italic;
 }
 =======
+=======
+>>>>>>> 3d0217956183b3c9eb0b7bf377f081e5c4259783
 
 
 .login-container {
@@ -50,4 +53,7 @@ nav {
   height: 100vh;
 }
 
+<<<<<<< HEAD
 >>>>>>> origin/feature/authentication-pages
+=======
+>>>>>>> 3d0217956183b3c9eb0b7bf377f081e5c4259783

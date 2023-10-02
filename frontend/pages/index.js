@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+<<<<<<< HEAD
 
 export default function Home() {
   return (
@@ -63,6 +64,22 @@ export default function Home() {
           </span>
         </a>
       </footer>
+=======
+import ProductCard from '../components/card'
+import ColorfulCarousel from '../components/carousel'
+import Image from 'next/image'
+import Footer from '../components/footer'
+import Header from '../components/header'
+import SearchBar from '../components/searchbar'
+export default function Home() {
+  return (
+    <div className={styles.container}>
+    <SearchBar/>
+    <Header/>
+    <ColorfulCarousel/>
+    <ProductCard/>
+      <Footer/>
+>>>>>>> 3d0217956183b3c9eb0b7bf377f081e5c4259783
     </div>
   )
 }
