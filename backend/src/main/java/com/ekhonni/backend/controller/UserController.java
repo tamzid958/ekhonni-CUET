@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -16,8 +18,6 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        // Set the UserType from the request
-
         User registeredUser = userService.registerUser(user);
         return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }

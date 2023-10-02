@@ -9,5 +9,5 @@ import java.util.List;
 @RepositoryRestResource
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    List<Product> findAllByNameContains(String name);
+    List<Product> findAllByCategoryContains(String category);
 }

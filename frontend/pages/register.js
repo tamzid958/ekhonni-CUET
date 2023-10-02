@@ -120,7 +120,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/register', formData);
+      const response = await axios.post('http://localhost:8080/api/v1/users/register', formData);
 
       console.log('Registration successful!', response.data);
 
@@ -207,7 +207,7 @@ function Register() {
           <Form.Group as={Col} className="mb-3" controlId="formBasicNID">
             <Form.Label>NID</Form.Label>
             <Form.Control
-              type="tel"
+              type="number"
               name="nid"
               placeholder="Enter NID number"
               pattern="[0-9]"
@@ -229,7 +229,7 @@ function Register() {
             />
           </Form.Group>
 
-         
+
         </Row>
 
         <Button variant="primary" type="submit">
