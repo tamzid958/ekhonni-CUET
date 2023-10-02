@@ -3,7 +3,6 @@ import { Container, Row, Col, Image, Card, Form, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import button from '../../components/button';
 const ProductDetails = ({ productName, price, seller, contact, description,category, productDescription}) => {
   return (
     <Container>
