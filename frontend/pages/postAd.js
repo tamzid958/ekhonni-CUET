@@ -6,13 +6,19 @@ import Footer from '../components/footer';
 import Header from '../components/header';
 import axios from 'axios';
 import { baseUrl } from '../utils/baseUrl'
+import { useRouter } from 'next/router';
 
 const CreateProduct = () => {
+
+  const storedUser=typeof window!=='undefined'?localStorage.getItem('user'):null;
+  const user = JSON.parse(storedUser);
+  const router=useRouter();
   const [formData, setFormData] = useState({
     category: 'electronic',
     name: '',
     price: '',
-    description: ''
+    description: '',
+    seller:`${baseUrl}/users/${user.id}`
   });
 
   const handleChange = (e) => {
@@ -30,6 +36,8 @@ const CreateProduct = () => {
       await axios.post(`${baseUrl}/products`, formData);
 
       alert('Product created successfully!');
+      router.push('/');
+
     } catch (error) {
       console.error('Error creating product:', error);
       alert('Error creating product. Please try again later.');
@@ -43,7 +51,7 @@ const CreateProduct = () => {
         <Col>
           <div className="form-container mb-5 mt-3" >
             <h2>Create a New Product</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e)=>handleSubmit(e)}>
               <div className="form-group">
                 <label htmlFor="name">Product Name:</label>
                 <input type="text" name="name" id="name" placeholder="Enter product name" onChange={handleChange} value={formData.name} />
