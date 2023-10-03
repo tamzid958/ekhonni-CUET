@@ -46,7 +46,7 @@ function Header() {
           ) : (
             <div>
               <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }}>
-                Login
+                <Link href='login'>Login</Link>
               </Button>
             </div>
           )}
