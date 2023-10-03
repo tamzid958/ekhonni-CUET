@@ -18,7 +18,7 @@ function Header() {
 
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark" style={{ border: '3px solid green' }}>
+      <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
         <Container>
           <Link href="/home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             Ekhoni
@@ -28,9 +28,9 @@ function Header() {
           </Link>
 
           <Nav className="me-auto">
-            <Link href="/">Home</Link>
-            <Link href="/profile">Profile</Link>
-            <Link href="/pricing">Post your AD</Link>
+            <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
+            <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
+            <Link href="/post your AD" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
           </Nav>
 
           <div className="ml-auto">
@@ -39,14 +39,14 @@ function Header() {
 
           {user ? (
             <div>
-              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={handleLogout}>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }} onClick={handleLogout}>
                 Logout
               </Button>
             </div>
           ) : (
             <div>
-              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
-              <Link href='/login'>Login</Link>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }}>
+                Login
               </Button>
             </div>
           )}
