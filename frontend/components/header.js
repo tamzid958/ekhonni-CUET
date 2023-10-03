@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 
 function Header() {
-  const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
@@ -29,8 +29,6 @@ function Header() {
 
           <Nav className="me-auto">
             <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
-            <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
-            <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
           </Nav>
 
           <div className="ml-auto">
@@ -42,6 +40,13 @@ function Header() {
               <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }} onClick={handleLogout}>
                 Logout
               </Button>
+              <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
+              {user.userType==='SELLER' &&
+              (
+                <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
+
+              )}
+
             </div>
           ) : (
             <div>

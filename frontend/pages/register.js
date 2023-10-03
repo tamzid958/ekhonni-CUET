@@ -152,7 +152,7 @@ function Register() {
 
         </Row>
 
-        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
+        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={(e)=>handleSubmit(e)}>
         Register
         </Button>
       </Form>
