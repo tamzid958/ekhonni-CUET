@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import axios from 'axios';
+import { baseUrl } from '../utils/baseUrl'
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const CreateProduct = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8080/products', formData);
+      await axios.post(`${baseUrl}/products`, formData);
 
       alert('Product created successfully!');
     } catch (error) {

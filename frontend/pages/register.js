@@ -6,6 +6,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import { baseUrl } from '../utils/baseUrl'
+import Header from '../components/header'
+import Footer from '../components/footer'
+import Link from 'next/link';
 
 
 function Register() {
@@ -54,8 +58,10 @@ function Register() {
   };
 
   return (
-    <div className="form-container">
-      <Form className="form" onSubmit={handleSubmit}>
+    <div className="container">
+      <Header />
+    <div className="register-container">
+      <Form className="register" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Full Name</Form.Label>
           <Form.Control
@@ -146,10 +152,13 @@ function Register() {
 
         </Row>
 
-        <Button variant="primary" type="submit">
-          Register
+        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
+        Register
         </Button>
       </Form>
+    </div>
+    <Footer />
+
     </div>
   );
 }
