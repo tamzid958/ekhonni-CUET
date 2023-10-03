@@ -7,6 +7,7 @@ import React from 'react'
 
 
 export default function Home({ products }) {
+  console.log(products);
 
   return (
     <div className="container">
@@ -15,7 +16,7 @@ export default function Home({ products }) {
       <CarouselSection/>
 
       <div className="container">
-      <CardSection products={products} />
+      <CardSection data={products} />
       </div>
        <Footer />
 
@@ -24,10 +25,12 @@ export default function Home({ products }) {
 }
 
 
-export async function getStaticProps() {
+export async  function getStaticProps (){
+    
   try {
     const response = await axios.get('http://localhost:8080/products');
-    const products = response.data;
+    const products = response.data._embedded.products;
+    console.log(products);
 
     return {
       props: {
@@ -44,16 +47,3 @@ export async function getStaticProps() {
   }
 }
 
-
-// import axios from 'axios';
-// import React from 'react';
-// import CardSection from '../components/card/cardSection';
-
-// export default function Home({ products }) {
-//   // console.log(products);
-//   return (
-//     <div className="container">
-//       <CardSection products={products} />
-//     </div>
-//   );
-// }

@@ -6,39 +6,33 @@ import Header from '../../components/header';
 import { useState } from 'react';
 import axios from 'axios';
 
-const handleBidSubmit = async (e) => {
-  e.preventDefault();
-
-  const bidData = 
-
-  try {
-    await axios.post('http://localhost:8080/biddings', bidData);
-
-    alert('Bid placed successfully!');
-  } catch (error) {
-    console.error('Error placing bid:', error);
-    alert('Error placing bid. Please try again later.');
-  }
-};
 
 
-const ProductDetails = ({ productName, price, seller, contact, description, category, productDescription }) => {
+const ProductDetails = ({ productName, price, seller, contact, description, category, productDescription ,biddings,product}) => {
+  console.log(seller);
+
   const [bidAmount, setBidAmount] = useState('');
-  <Form onSubmit={handleBidSubmit}>
-  <Form.Group controlId="bidForm">
-    <Form.Label>Your Bid</Form.Label>
-    <Form.Control
-      type="text"
-      placeholder="Enter your bid amount"
-      value={bidAmount}
-      onChange={(e) => setBidAmount(e.target.value)}
-    />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Place Bid
-  </Button>
-</Form>
 
+
+  const handleBidSubmit = async (e) => {
+    e.preventDefault();
+  
+    const bidData = {
+      "bidPrice": 50000,
+      "buyer": "http://localhost:8080/users/8",
+      "product": "http://localhost:8080/products/2"
+    }
+  
+    try {
+      await axios.post('http://localhost:8080/biddings', bidData);
+  
+      alert('Bid placed successfully!');
+    } catch (error) {
+      console.error('Error placing bid:', error);
+      alert('Error placing bid. Please try again later.');
+    }
+  };
+  
 
   return (
     <Container>
@@ -56,12 +50,12 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
         {}
         <Col md={6}>
           <h2>{productName}</h2>
-          <p>Product Name: {productName}</p>
-          <p>Category: {category}</p>
-          <p>Price: {price}</p>
-          <p>Seller: {seller}</p>
-          <p>Contact: {contact}</p>
-          <h3>Description: {productDescription}</h3>
+          <p>Product Name: {product.name}</p>
+          <p>Category: {product.category}</p>
+          <p>Price: {product.price}</p>
+          <p>Seller: {seller.name}</p>
+          <p>Contact: {seller.phoneNumber}</p>
+          <h3>Description: {product.description}</h3>
           <p>{description}</p>
         </Col>
       </Row>
@@ -90,7 +84,7 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
               <Form.Label>Your Bid</Form.Label>
               <Form.Control type="text" placeholder="Enter your bid amount" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={(e)=>handleBidSubmit(e)}>
               Place Bid
             </Button>
           </Form>
@@ -102,3 +96,67 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
 };
 
 export default ProductDetails;
+
+const getProductsWithoutPaginaton = async () =>{
+  
+    const response = await axios.get('http://localhost:8080/products');
+    let data = response.data._embedded;
+
+
+  return {data}
+}
+
+const getSellerInfo=async(id)=>{
+  try {
+    const response = await axios.get(`http://localhost:8080/products/${id}/seller`);
+    const sellerData = response.data;
+    return { sellerData };
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+    return { sellerData: null }; 
+  }
+}
+
+const getOneProduct = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/products/${id}`);
+    const data = response.data;
+
+    return { data };
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+    return { data: null }; 
+  }
+};
+
+
+export async function getStaticPaths(){
+
+  const {data} = await getProductsWithoutPaginaton()
+  
+  const paths = data.products.map((prod )=> ({
+     params: { id:prod._links.product.href.split('/')[prod._links.product.href.split('/').length-1] }
+  }))
+
+return { paths, fallback: false }
+
+}
+
+export async function getStaticProps({ params }) {
+  try {
+    const { data } = await getOneProduct(parseInt(params.id));
+    const {sellerData}=await getSellerInfo(parseInt(params.id))
+    const product = data;
+    const seller=sellerData; 
+
+    return {
+      props: { product,seller },
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return {
+      props: { product: null }, 
+    };
+  }
+}
+
