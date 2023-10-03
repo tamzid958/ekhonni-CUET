@@ -18,7 +18,6 @@ function Login() {
 
     try {
       const response = await axios.post('http://localhost:8080/api/users/login', requestBody);
-
       console.log('Login successful!', response.data);
     } catch (error) {
       console.error('Login failed', error);
