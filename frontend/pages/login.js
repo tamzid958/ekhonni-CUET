@@ -64,7 +64,7 @@ function Login() {
         </Form.Group>
         <Row>
         <Form.Group as={Col}>
-        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
+        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={(e)=>handleSubmit(e)}>
             Login
           </Button>
           </Form.Group>
