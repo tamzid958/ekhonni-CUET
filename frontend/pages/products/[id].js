@@ -3,36 +3,86 @@ import { Container, Row, Col, Image, Card, Form, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
 
 const ProductDetails = ({ productName, price, seller, contact, description, category, productDescription ,biddings,product}) => {
   console.log(seller);
-
+  let prod_id=product._links.product.href.split('/')[product._links.product.href.split('/').length-1];
+  const storedUser=typeof window!=='undefined'?localStorage.getItem('user'):null;
+  const user = JSON.parse(storedUser);
   const [bidAmount, setBidAmount] = useState('');
-
-
+  const [bids,setBids]=useState([]);
+  console.log(bidAmount);
   const handleBidSubmit = async (e) => {
     e.preventDefault();
-  
     const bidData = {
-      "bidPrice": 50000,
-      "buyer": "http://localhost:8080/users/8",
-      "product": "http://localhost:8080/products/2"
-    }
-  
+      bidPrice: bidAmount, 
+      buyer: `http://localhost:8080/users/${user.id}`, 
+      product: `http://localhost:8080/products/${prod_id}`, 
+    };
+
     try {
       await axios.post('http://localhost:8080/biddings', bidData);
-  
       alert('Bid placed successfully!');
+      fetchBids();
     } catch (error) {
       console.error('Error placing bid:', error);
       alert('Error placing bid. Please try again later.');
     }
   };
+
+console.log(prod_id);
+
+
+
+
+
+const fetchBids = async () => {
+  try {
+
+ 
+    
+
+    if(user)
+    {
+      if(user.userType=="SELLER") {
+        var response = await axios.get(
+          `http://localhost:8080/biddings/search/findByProductId?id=${prod_id}`
+        );
+      }
+      else{
+
+          var response = await axios.get(
+          `http://localhost:8080/biddings/search/findByProductIdAndBuyerId?p_id=${prod_id}&b_id=${user.id}`
+        );
+      }
+    }
+
   
+    console.log(response.data);
+
+    const fetchedBids = response.data._embedded.biddings;
+    setBids(fetchedBids); 
+    return fetchedBids; 
+  } catch (error) {
+    console.error('Error fetching bids:', error);
+    return []; 
+  }
+};
+
+
+
+
+
+useEffect(() => {
+  fetchBids().then((bidsData) => {
+    console.log(bidsData); 
+  });
+}, []);
+
 
   return (
     <Container>
@@ -82,11 +132,12 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
           <Form>
             <Form.Group controlId="bidForm">
               <Form.Label>Your Bid</Form.Label>
-              <Form.Control type="text" placeholder="Enter your bid amount" />
+              <Form.Control type="text" placeholder="Enter your bid amount" onChange={(e)=>setBidAmount(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type="submit" onClick={(e)=>handleBidSubmit(e)}>
               Place Bid
             </Button>
+            <div>Current Bid: {bids.map(b=>b.bidPrice)}</div>
           </Form>
         </Col>
       </Row>
