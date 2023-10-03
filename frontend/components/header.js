@@ -20,7 +20,7 @@ function Header() {
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
         <Container>
-          <Link href="/home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             Ekhoni
             <div style={{ fontSize: '14px', color: 'lightgray' }}>
               Buy and Sell Anything
@@ -30,7 +30,7 @@ function Header() {
           <Nav className="me-auto">
             <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
             <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
-            <Link href="/post your AD" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
+            <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
           </Nav>
 
           <div className="ml-auto">
