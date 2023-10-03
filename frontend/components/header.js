@@ -18,7 +18,7 @@ function Header() {
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ border: '3px solid green' }}>
         <Container>
-          <Link href="/home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'lightwhite', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'lightwhite', textDecoration: 'none' }}>
             <span style={{ fontSize: '24px', marginBottom: '5px' }}>Ekhoni</span>
             <div style={{ fontSize: '14px', fontFamily: 'italic', color: 'lightgray' }}>
               Buy and Sell Anything
