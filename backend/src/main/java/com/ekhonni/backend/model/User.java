@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity<Long> implements Serializable {
