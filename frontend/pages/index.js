@@ -26,7 +26,7 @@ export default function Home({ products }) {
 
 export async function getStaticProps() {
   try {
-    const response = await axios.get('http://localhost:8080/products');
+    const response = await axios.get(`${baseUrl}/products`);
     const products = response.data;
 
     return {

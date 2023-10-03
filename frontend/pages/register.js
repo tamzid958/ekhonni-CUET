@@ -35,7 +35,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/users/register', formData);
+      const response = await axios.post(`${baseUrl}/api/v1/users/register`, formData);
       setFormData({
         name: '',
         email: '',
