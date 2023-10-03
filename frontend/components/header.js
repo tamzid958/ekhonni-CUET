@@ -19,7 +19,7 @@ function Header() {
           </Link>
 
           <Nav className="me-auto">
-            <Link href="/home">Home</Link>
+            <Link href="/">Home</Link>
             <Link href="/profile">Profile</Link>
             <Link href="/pricing">Post your AD</Link>
           </Nav>
