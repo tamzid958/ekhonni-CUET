@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import axios from 'axios';
+import { baseUrl } from '../utils/baseUrl'
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -26,9 +27,9 @@ const CreateProduct = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      await axios.post('http://localhost:8080/products', formData);
-        
-      // alert('Product created successfully!');
+      await axios.post(`${baseUrl}/products`, formData);
+
+      alert('Product created successfully!');
     } catch (error) {
       console.error('Error creating product:', error);
       alert('Error creating product. Please try again later.');

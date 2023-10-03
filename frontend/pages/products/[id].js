@@ -5,6 +5,7 @@ import Footer from '../../components/footer';
 import Header from '../../components/header';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { baseUrl } from '../../utils/baseUrl';
 
 
 
@@ -25,7 +26,8 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
     };
 
     try {
-      await axios.post('http://localhost:8080/biddings', bidData);
+      await axios.post(`${baseUrl}/biddings`, bidData);
+  
       alert('Bid placed successfully!');
       fetchBids();
     } catch (error) {
@@ -150,7 +152,7 @@ export default ProductDetails;
 
 const getProductsWithoutPaginaton = async () =>{
   
-    const response = await axios.get('http://localhost:8080/products');
+    const response = await axios.get(`${baseUrl}/products`);
     let data = response.data._embedded;
 
 
@@ -159,7 +161,7 @@ const getProductsWithoutPaginaton = async () =>{
 
 const getSellerInfo=async(id)=>{
   try {
-    const response = await axios.get(`http://localhost:8080/products/${id}/seller`);
+    const response = await axios.get(`${baseUrl}/products/${id}/seller`);
     const sellerData = response.data;
     return { sellerData };
   } catch (error) {
@@ -170,7 +172,7 @@ const getSellerInfo=async(id)=>{
 
 const getOneProduct = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/products/${id}`);
+    const response = await axios.get(`${baseUrl}/products/${id}`);
     const data = response.data;
 
     return { data };
