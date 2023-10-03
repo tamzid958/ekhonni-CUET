@@ -2,13 +2,13 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-
+import { useRouter } from 'next/router';
 
 function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const requestBody = {
@@ -18,6 +18,11 @@ function Login() {
 
     try {
       const response = await axios.post('http://localhost:8080/api/v1/users/login', requestBody);
+      const user = response.data;
+
+      localStorage.setItem('user', JSON.stringify(user));
+
+      router.push('/');
 
       console.log('Login successful!', response.data);
     } catch (error) {

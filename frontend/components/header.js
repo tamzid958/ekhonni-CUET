@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import SearchBar from './searchbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
 
 
 function Header() {
@@ -10,17 +11,17 @@ function Header() {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Link href="/home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             Ekhoni
             <div style={{ fontSize: '14px', color: 'lightgray' }}>
               Buy and Sell Anything
             </div>
-          </Navbar.Brand>
+          </Link>
 
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="#pricing">Post your AD</Nav.Link>
+            <Link href="/home">Home</Link>
+            <Link href="/profile">Profile</Link>
+            <Link href="/pricing">Post your AD</Link>
           </Nav>
 
 
