@@ -27,7 +27,7 @@ const CreateProduct = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      await axios.post('http://localhost:8080/products', formData);
+      await axios.post(`${baseUrl}/products`, formData);
 
       alert('Product created successfully!');
     } catch (error) {
