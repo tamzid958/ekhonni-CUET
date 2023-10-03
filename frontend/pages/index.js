@@ -45,15 +45,3 @@ export async function getStaticProps() {
 }
 
 
-// import axios from 'axios';
-// import React from 'react';
-// import CardSection from '../components/card/cardSection';
-
-// export default function Home({ products }) {
-//   // console.log(products);
-//   return (
-//     <div className="container">
-//       <CardSection products={products} />
-//     </div>
-//   );
-// }
