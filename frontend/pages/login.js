@@ -2,13 +2,19 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-
+import { useRouter } from 'next/router';
+import { baseUrl } from '../utils/baseUrl'
+import Header from '../components/header'
+import Footer from '../components/footer'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Link from 'next/link';
 
 function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const requestBody = {
@@ -17,7 +23,12 @@ function Login() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/users/login', requestBody);
+      const response = await axios.post(`${baseUrl}/api/v1/users/login`, requestBody);
+      const user = response.data;
+
+      localStorage.setItem('user', JSON.stringify(user));
+
+      router.push('/');
 
       console.log('Login successful!', response.data);
     } catch (error) {
@@ -26,8 +37,10 @@ function Login() {
   };
 
   return (
-    <div className="form-container">
-      <Form className='form' onSubmit={handleSubmit}>
+    <div className="container">
+      <Header />
+      <div className="login-container">
+      <Form className='login' onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address: </Form.Label>
           <Form.Control
@@ -49,10 +62,28 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-      </Form>
+        <Row>
+        <Form.Group as={Col}>
+        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={(e)=>handleSubmit(e)}>
+            Login
+          </Button>
+          </Form.Group>
+
+          <Form.Group as={Col}>
+          <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
+          <Link href='/register'>Register</Link>
+          </Button>
+          <Form.Text className="text-muted">
+           <p style={{ textAlign: 'center' }}>Do not have an account?</p>
+          </Form.Text>
+          </Form.Group>
+          </Row>
+
+         </Form>
+         
+      </div>
+      <Footer />
+
     </div>
   );
 }

@@ -1,32 +1,60 @@
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import SearchBar from './searchbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Link from 'next/link';
+import { Button } from 'react-bootstrap';
 
 function Header() {
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+    }
+  };
+
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
         <Container>
-          <Navbar.Brand href="#home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             Ekhoni
             <div style={{ fontSize: '14px', color: 'lightgray' }}>
               Buy and Sell Anything
             </div>
-          </Navbar.Brand>
+          </Link>
 
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="#pricing">Post your AD</Nav.Link>
+            <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
           </Nav>
-
 
           <div className="ml-auto">
             <SearchBar />
           </div>
+
+          {user ? (
+            <div>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }} onClick={handleLogout}>
+                Logout
+              </Button>
+              <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
+              {user.userType==='SELLER' &&
+              (
+                <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
+
+              )}
+
+            </div>
+          ) : (
+            <div>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }}>
+                <Link href='login'>Login</Link>
+              </Button>
+            </div>
+          )}
         </Container>
       </Navbar>
       <br />

@@ -1,25 +1,24 @@
-
-
-import ProductCard from '../components/card/productCard'
-import ColorfulCarousel from '../components/carousel/carousel'
-
+import CardSection from '../components/card/cardSection'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import CarouselSection from '../components/carousel/carouselSection'
-import CardSection from '../components/card/cardSection'
+import axios from 'axios'
+import React from 'react'
+import { baseUrl } from '../utils/baseUrl'
 
-export default function Home() {
+
+export default function Home({ products }) {
+  console.log(products);
 
   return (
     <div className="container">
 
       <Header />
-
-
       <CarouselSection />
-      <CardSection />
-      <CardSection />
-      <CardSection />
+
+      <div className="container">
+        <CardSection data={products} />
+      </div>
       <Footer />
 
     </div>
@@ -27,3 +26,24 @@ export default function Home() {
 }
 
 
+export async function getStaticProps() {
+
+  try {
+    const response = await axios.get(`${baseUrl}/products`);
+    const products = response.data._embedded.products;
+    console.log(products);
+
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        products: [],
+      },
+    };
+  }
+}
