@@ -1,18 +1,19 @@
 package com.ekhonni.backend.model;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Setter
 @Getter
 @RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity<Long> {
+public class Product extends BaseEntity<Long> implements Serializable {
     @Column(name = "name")
     private String name;
 
