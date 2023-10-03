@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button'; // Corrected import statement
-import { useTheme } from '@mui/material/styles'; // Corrected import statement
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 
 const ProductCategoryList = () => {
-  // Define your product categories here
   const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
 
   return (

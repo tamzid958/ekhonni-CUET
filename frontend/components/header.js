@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 
 function Header() {
-  const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
@@ -20,17 +20,15 @@ function Header() {
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
         <Container>
-          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'lightwhite', textDecoration: 'none' }}>
-            <span style={{ fontSize: '24px', marginBottom: '5px' }}>Ekhoni</span>
-            <div style={{ fontSize: '14px', fontFamily: 'italic', color: 'lightgray' }}>
+          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            Ekhoni
+            <div style={{ fontSize: '14px', color: 'lightgray' }}>
               Buy and Sell Anything
             </div>
           </Link>
 
           <Nav className="me-auto">
             <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
-            <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
-            <Link href="/post your AD" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
           </Nav>
 
           <div className="ml-auto">
@@ -42,11 +40,18 @@ function Header() {
               <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }} onClick={handleLogout}>
                 Logout
               </Button>
+              <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
+              {user.userType==='SELLER' &&
+              (
+                <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
+
+              )}
+
             </div>
           ) : (
             <div>
               <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }}>
-                Login
+                <Link href='login'>Login</Link>
               </Button>
             </div>
           )}
