@@ -8,14 +8,10 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 
 function Header() {
-  // Check if the user is found in local storage
   const user = localStorage.getItem('user');
   console.log(user)
-  // Function to handle logout
   const handleLogout = () => {
-    // Remove the user from local storage
     localStorage.removeItem('user');
-    // You can also perform other logout-related tasks here
   };
 
   return (
@@ -30,7 +26,7 @@ function Header() {
           </Link>
 
           <Nav className="me-auto">
-            <Link href="/home" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Home</Link>
+            <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Home</Link>
             <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Profile</Link>
             <Link href="/post your AD" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Post your AD</Link>
           </Nav>
