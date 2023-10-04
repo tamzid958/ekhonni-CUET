@@ -1,10 +1,4 @@
-
-
-
-
 import React from 'react';
-
-
 const ProductCategoryList = () => {
   const categories = [
       'Electronics',

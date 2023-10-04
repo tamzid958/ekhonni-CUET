@@ -64,6 +64,7 @@ h3,h5{
   background: #7ac400;
   box-shadow: none;
 }
+/*Footer Section*/
 footer {
   background-color: #333;
   color: #fff;
@@ -104,7 +105,9 @@ footer {
 .footer-section ul li a:hover {
   text-decoration: underline;
 }
-
+.address {
+  text-align: center;
+}
 h4{
   font-size: 20px;
 }
@@ -204,15 +207,16 @@ button:hover {
 }
 /*Style Carousel Section */
 .abcd {
-  background-color:#f9f6f1 ; 
+  background-color:white; 
   padding-top: 10px; 
   border-radius: 10px;
   border: 1px solid #ccc;
- 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 } 
  .row-carousel {
   padding: 15px; 
   border: 1px solid #ccc; 
   margin: 10px 0;
   border-radius: 10px;
+  
 } 
