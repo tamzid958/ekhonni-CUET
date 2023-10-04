@@ -31,7 +31,6 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       await axios.post(`${baseUrl}/products`, formData);
 

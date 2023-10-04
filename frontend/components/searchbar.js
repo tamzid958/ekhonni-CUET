@@ -13,7 +13,7 @@ export function SearchBar() {
               style={{ width: '200px', height: '40px', backgroundColor: 'white' }} 
               aria-label="Search"
             />
-            <Button className="rounded-pill" variant="outline-primary" style={{ height: '40px' }}>
+            <Button className="rounded-pill" variant="outline-primary" style={{ height: '40px', color: 'white' }}>
               Search
             </Button>
           </Form>

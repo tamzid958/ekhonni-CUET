@@ -17,4 +17,6 @@ public interface BiddingRepository extends CrudRepository<Bidding, Long> {
    List<Bidding> findByProductId(Long id);
 
    List<Bidding> findByProductIdAndBuyerId(Long p_id, Long b_id);
+
+
 }
