@@ -8,7 +8,7 @@ import { baseUrl } from '../utils/baseUrl'
 
 
 export default function Home({ products }) {
-  console.log(products);
+
 
   return (
     <div className="container">
@@ -31,13 +31,12 @@ export async function getStaticProps() {
   try {
     const response = await axios.get(`${baseUrl}/products`);
     const products = response.data._embedded.products;
-    console.log(products);
-
     return {
       props: {
         products,
       },
     };
+
   } catch (error) {
     console.error('Error fetching data:', error);
     return {
