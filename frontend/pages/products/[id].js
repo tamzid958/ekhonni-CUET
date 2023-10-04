@@ -13,7 +13,7 @@ const ProductDetails = ({ seller, product }) => {
   const [bidAmount, setBidAmount] = useState('');
   let [bids, setBids] = useState([]);
   const [isSeller, setIsSeller] = useState(false);
-  const [buyers, setBuyers] = useState(null);
+  const [buyers, setBuyers] = useState([]);
 
   useEffect(() => {
     fetchBids();
@@ -33,15 +33,36 @@ const ProductDetails = ({ seller, product }) => {
       product: `http://localhost:8080/products/${prod_id}`,
     };
     try {
-      await axios.post(`${baseUrl}/biddings`, bidData);
-      alert('Bid placed successfully!');
-      fetchBids();
+      const existingBuyerIndex = buyers.findIndex((buyer) => buyer.email === user.email);
+      console.log(buyers);
+      console.log(existingBuyerIndex);
+      if(existingBuyerIndex == -1)
+      { 
+        await axios.post(`${baseUrl}/biddings`, bidData);
+        alert('Bid placed successfully!');
+        fetchBids();
+      }
+      else
+      {
+        // const response = await axios.get(`${baseUrl}/biddings`);
+        // const newBid = response.data;
+        // console.log(newBid);
+        const bid_id=bids[0]._links.bidding.href.split('/')[bids[0]._links.bidding.href.split('/').length-1];
+        const updateBidUrl = `${baseUrl}/biddings/${bid_id}`;
+        await axios.patch(updateBidUrl, {
+          bidPrice:bidAmount
+        });
+        alert('Bid updated successfully!');
+        fetchBids();
+      }
     } catch (error) {
       console.error('Error placing bid:', error);
       alert('Error placing bid. Please try again later.');
     }
   };
-  let finalBuyers = [];
+  console.log(bids);
+  var finalBuyers = [];
+
   const fetchBids = async () => {
     try {
       if (user) {
@@ -56,19 +77,20 @@ const ProductDetails = ({ seller, product }) => {
           );
         }
         const fetchedBids = response.data._embedded.biddings;
-
         if (fetchedBids.length > 0) {
-          for (const bid of fetchedBids) {
-            const buyerLink = bid._links.buyer.href;
-            try {
-              const buyerResponse = await axios.get(buyerLink);
-              const buyerData = buyerResponse.data;
-              finalBuyers.push(buyerData);
-            } catch (error) {
-              console.error('Error fetching buyer:', error);
-            }
-          }
-          setBuyers(finalBuyers);
+          const buyerLinks = fetchedBids.map(bid => bid._links.buyer.href);
+          const buyerPromises = buyerLinks.map(buyerLink => axios.get(buyerLink));
+          Promise.all(buyerPromises)
+            .then(buyerResponses => {
+              const buyersData = buyerResponses.map(response => response.data);
+              // Push each buyer data into finalBuyers array
+              buyersData.forEach(buyer => finalBuyers.push(buyer));
+              // Set the buyers state to finalBuyers
+              setBuyers(finalBuyers);
+            })
+            .catch(error => {
+              console.error('Error fetching buyers:', error);
+            });
         }
         setBids(fetchedBids);
       }
@@ -76,7 +98,6 @@ const ProductDetails = ({ seller, product }) => {
       console.error('Error fetching bids:', error);
     }
   };
-  console.log(buyers);
 
   const acceptBid = async (url) => {
     try {
@@ -96,7 +117,7 @@ const ProductDetails = ({ seller, product }) => {
       console.error('Error accepting bid:', error);
     }
   };
-  console.log(bids);
+  // console.log(buyers[0].name, buyers[1].name);
   return (
     <Container>
       <Header />
@@ -135,7 +156,7 @@ const ProductDetails = ({ seller, product }) => {
                 Place Bid
               </Button>
               <div>Current Bid: {bids.map((b) => b.bidPrice)}</div>
-              <span>Status:{bids.status}</span>
+              <span>Status:{bids.map((b) => b.status)}</span>
             </Form>
           </Col>
         </Row>
@@ -166,7 +187,7 @@ const ProductDetails = ({ seller, product }) => {
                         <span>Rejected</span>
                       ) : (
                         <>
-                          <Button variant="primary" onClick={() => acceptBid(bid._links.bidding.href)}>
+                          <Button variant="primary" onClick={acceptBid(bid._links.bidding.href)}>
                             Accept
                           </Button>{' '}
                           <Button
