@@ -14,12 +14,9 @@ import { baseUrl } from '../utils/baseUrl';
 
 
   useEffect(() => {
-    //const storedUserJSON = localStorage.getItem('user');
     const storedUserData = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
-    //const storedUserData = JSON.parse(storedUserJSON);
     let user_id = storedUserData.id;
     console.log(storedUserData);
-
     setStoredUser(storedUserData);
 
     axios
@@ -43,7 +40,8 @@ import { baseUrl } from '../utils/baseUrl';
     setUpdatingAddress(event.target.value);
   };
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
     let user_id = storedUser._links.user.href.split('/')[storedUser._links.user.href.split('/').length - 1];
 
     console.log(storedUser);
@@ -160,7 +158,7 @@ import { baseUrl } from '../utils/baseUrl';
                     <button
                       className="btn btn-primary profile-button"
                       type="button"
-                      onClick={handleUpdateProfile}
+                      onClick={(e)=>handleUpdateProfile(e)}
                     >
                       Update Profile
                     </button>

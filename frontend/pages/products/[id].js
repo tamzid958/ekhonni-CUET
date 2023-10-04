@@ -24,6 +24,7 @@ const ProductDetails = ({ seller, product }) => {
   }, []);
 
   const handleBidSubmit = async (e) => {
+    
     if (!user) {
       return alert('Please login to place a bid');
     }
@@ -145,7 +146,7 @@ const ProductDetails = ({ seller, product }) => {
                   onChange={(e) => setBidAmount(e.target.value)}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" onClick={handleBidSubmit}>
+              <Button variant="primary" type="submit" onClick={(e)=>handleBidSubmit(e)}>
                 Place Bid
               </Button>
               <div>Current Bid: {bids.map((b) => b.bidPrice)}</div>
