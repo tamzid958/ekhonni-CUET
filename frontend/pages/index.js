@@ -6,8 +6,9 @@ import axios from 'axios'
 import React from 'react'
 import { baseUrl } from '../utils/baseUrl'
 import { useState } from 'react'
+import dynamic from "next/dynamic";
 
-export default function Home({ products }) {
+function Home({ products }) {
 
   const [sellerProducts, setSellerProducts] = useState([])
 
@@ -63,6 +64,7 @@ export default function Home({ products }) {
     </div>
   )
 }
+export default dynamic (() => Promise.resolve(Home), {ssr: false})
 
 
 export async function getStaticProps() {

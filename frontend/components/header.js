@@ -24,7 +24,7 @@ function Header() {
       <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
         <Container style={{ maxWidth: '1200px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontSize: '24px', color: 'white' }}>Ekhoni</span>
+            <Link href="/" style={{ fontSize: '24px', color: 'white',textDecoration:'none' }}>Ekhoni</Link>
             <div style={{ fontSize: '14px', color: 'white' }}>
               Buy and Sell Anything
             </div>
