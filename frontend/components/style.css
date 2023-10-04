@@ -1,42 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap');
-*{
-    padding: 30;
-    margin: 20;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap");
+* {
+  padding: 30;
+  margin: 20;
+  box-sizing: border-box;
 }
 body{
-	font-size: 1.7rem;
-	font-family: 'Merriweather Sans', sans-serif;
-	background:#f9f6f1;
-	color: #ececec;
-	padding: 2rem;
-} 
+  font-size: 1.7rem;
+  font-family: "Merriweather Sans", sans-serif;
+  background: #f9f6f1;
+  color: #ececec;
+  padding: 2rem;
+}
 /* productCard*/
 
 .card-img-top {
-  border-radius: 10px; 
-  padding: 10px; 
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .card {
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-  padding: 10px; 
+  padding: 10px;
 }
 .card-body {
-  padding: 15px; 
-  margin-top: -10px; 
+  padding: 15px;
+  margin-top: -10px;
 }
 .btn-primary{
-    border-radius: 40px;
-    width: 120px;
+  border-radius: 40px;
+  width: 120px;
 }
 .btn-primary:hover{
-    background-color:black;
-    border: none;
+  background-color:black;
+  border: none;
 }
 h3,h5{
-    color: rgb(0, 91, 228);
+  color: rgb(0, 91, 228);
 }
 /* Add a class selector for the card hover effect */
 .card:hover {
@@ -45,37 +45,38 @@ h3,h5{
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .card-section {
-  background-color: white; /* Replace with your desired background color */
+  background-color: white; 
 }
 .btn {
-	color: #7ac400;
-    font-size: 11px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background: none;
-    border: 2px solid #7ac400;
-    padding: 6px 14px;
-    margin-top: 5px;
-    line-height: 16px;
-    border-radius: 20px;
+  color: #7ac400;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: none;
+  border: 2px solid #7ac400;
+  padding: 6px 14px;
+  margin-top: 5px;
+  line-height: 16px;
+  border-radius: 20px;
 }
 .btn:hover {
-	color: #fff;
-	background: #7ac400;
-	box-shadow: none;
+  color: #fff;
+  background: #7ac400;
+  box-shadow: none;
 }
+/*Footer Section*/
 footer {
-background-color: #333;
-color: #fff;
-display: flex;
-justify-content: space-between;
-padding: 20px;
-position: absolute;
-width: 100%;
-box-sizing: border-box;
-margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
 }
-  
+
 .footer-section {
   flex: 1;
   margin-right: 20px;
@@ -89,6 +90,7 @@ margin-top: 20px;
 .footer-section ul {
   list-style: none;
   padding: 0;
+  text-align: center;
 }
 
 .footer-section ul li {
@@ -98,15 +100,16 @@ margin-top: 20px;
 .footer-section ul li a {
   text-decoration: none;
   color: #fff;
-  font-weight: bold;
 }
 
 .footer-section ul li a:hover {
   text-decoration: underline;
 }
-
+.address {
+  text-align: center;
+}
 h4{
-font-size: 20px;
+  font-size: 20px;
 }
 /* styles.css */
 .form-container {
@@ -122,9 +125,7 @@ h2 {
   color: black;
 }
 
-
 .form-group {
- 
   margin-bottom: 20px;
   font-size: 15px;
   color: black;
@@ -161,12 +162,12 @@ button:hover {
   background-color: #0051ac;
 }
 .form-container {
-  background-color: #f5f5f5; /* Set your desired background color here */
+  background-color: #f5f5f5; 
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 500px; /* Adjust the width as needed */
-  margin: 0 auto; /* Center the form horizontally */
+  width: 500px; 
+  margin: 0 auto; 
 }
 
 /* Style the form header */
@@ -179,3 +180,43 @@ button:hover {
 .form-group {
   margin-bottom: 15px;
 }
+
+/*Style Category Section*/
+.categories__all {
+  background-color:rgb(33, 37, 41 );
+  color: white;
+  padding: 5px 10px; 
+  font-weight: bold; 
+  border-radius: 5px; 
+  text-align: center;
+}
+.categories ul {
+  list-style: none; 
+  padding-left: 10; 
+}
+.categories ul li {
+  margin: 10px 0; 
+}
+.ab {
+  text-decoration: none; 
+  transition: color 0.3s, font-size 0.3s; 
+  font-weight: 400;
+}
+ .ab:hover {
+  font-weight: bold;
+}
+/*Style Carousel Section */
+.abcd {
+  background-color:white; 
+  padding-top: 10px; 
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+} 
+ .row-carousel {
+  padding: 15px; 
+  border: 1px solid #ccc; 
+  margin: 10px 0;
+  border-radius: 10px;
+  
+} 
