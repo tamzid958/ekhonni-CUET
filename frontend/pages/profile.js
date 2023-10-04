@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios'; 
+import axios from 'axios';
 import Header from '../components/header';
 
 export default function Profile() {
@@ -14,20 +14,20 @@ export default function Profile() {
   useEffect(() => {
     const storedUserJSON = localStorage.getItem('user');
     const storedUserData = JSON.parse(storedUserJSON);
-    let user_id=storedUserData._links.user.href.split('/')[storedUserData._links.user.href.split('/').length-1];
+    let user_id = storedUserData._links.user.href.split('/')[storedUserData._links.user.href.split('/').length - 1];
     console.log(storedUserData);
 
     setStoredUser(storedUserData);
 
     axios
-      .get(`http://localhost:8080/users/${user_id}`)
+      .get(`${baseUrl}/users/${user_id}`)
       .then((response) => {
         setStoredUser(response.data);
-        setIsLoading(false); 
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }, []);
 
@@ -41,12 +41,12 @@ export default function Profile() {
   };
 
   const handleUpdateProfile = () => {
-    let user_id=storedUser._links.user.href.split('/')[storedUser._links.user.href.split('/').length-1];
+    let user_id = storedUser._links.user.href.split('/')[storedUser._links.user.href.split('/').length - 1];
 
     console.log(storedUser);
     console.log(user_id);
-    const apiUrl = `http://localhost:8080/users/${user_id}`;
-   
+    const apiUrl = `${baseUrl}/users/${user_id}`;
+
     const updatedUserData = {
       phoneNumber: updatingMobileNumber,
       address: updatingAddress,
@@ -72,7 +72,7 @@ export default function Profile() {
 
   return (
     <div className={styles.container}>
-      <Header/>
+      <Header />
       <div className="container rounded bg-white mt-5 mb-5">
         <div className="row justify-content-center align-items-center vh-100">
           {isLoading ? (

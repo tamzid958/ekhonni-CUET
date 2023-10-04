@@ -39,47 +39,49 @@ function Login() {
     <div className="container">
       <Header />
       <div className="login-container">
-      <Form className='login' onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address: </Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Text className="text-muted">
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password: </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Row>
-        <Form.Group as={Col}>
-        <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={(e)=>handleSubmit(e)}>
-            Login
-          </Button>
+        <Form className='login' onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address: </Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Form.Text className="text-muted">
+            </Form.Text>
           </Form.Group>
 
-          <Form.Group as={Col}>
-          <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
-          <Link href='/register'>Register</Link>
-          </Button>
-          <Form.Text className="text-muted">
-           <p style={{ textAlign: 'center' }}>Do not have an account?</p>
-          </Form.Text>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password: </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Group>
+          <Row>
+            <Form.Group as={Col}>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }} onClick={(e) => handleSubmit(e)}>
+                Login
+              </Button>
+            </Form.Group>
+
+            <Form.Group as={Col}>
+              <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '50px', height: '40px' }}>
+                <Link href='/register' style={{
+                  textDecoration: 'none',
+                }}>Register</Link>
+              </Button>
+              <Form.Text className="text-muted">
+                <p style={{ textAlign: 'center' }}>Do not have an account?</p>
+              </Form.Text>
+            </Form.Group>
           </Row>
 
-         </Form>
-         
+        </Form>
+
       </div>
       <Footer />
 
