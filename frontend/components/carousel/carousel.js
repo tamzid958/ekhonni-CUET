@@ -14,9 +14,7 @@ function ColorfulCarousel() {
           />
         </div>
 
-        <div>
-          <p style={{ color: 'green' }}>Discover curated collections of fashion, electronics, and lifestyle essentials at Ekhoni. Elevate your style with us today!</p>
-        </div>
+      
       </Carousel.Item>
 
       <Carousel.Item interval={1000}>
@@ -28,9 +26,7 @@ function ColorfulCarousel() {
           />
         </div>
 
-        <div>
-          <p style={{ color: 'green' }}>Discover curated collections of fashion, electronics, and lifestyle essentials at Ekhoni. Elevate your style with us today!</p>
-        </div>
+        
       </Carousel.Item>
 
       <Carousel.Item interval={1000}>
@@ -42,9 +38,6 @@ function ColorfulCarousel() {
           />
         </div>
 
-        <div>
-          <p style={{ color: 'green' }}>Discover curated collections of fashion, electronics, and lifestyle essentials at Ekhoni. Elevate your style with us today!</p>
-        </div>
       </Carousel.Item>
     </Carousel>
   );
