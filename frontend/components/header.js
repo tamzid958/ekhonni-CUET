@@ -22,16 +22,24 @@ function Header() {
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ borderRadius: "8px" }}>
-        <Container>
-          <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            Ekhoni
-            <div style={{ fontSize: '14px', color: 'lightgray' }}>
+        <Container style={{ maxWidth: '1200px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span style={{ fontSize: '24px', color: 'white' }}>Ekhoni</span>
+            <div style={{ fontSize: '14px', color: 'white' }}>
               Buy and Sell Anything
             </div>
-          </Link>
+          </div>
 
           <Nav className="me-auto">
             <Link href="/" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Home</Link>
+            
+            {user && user.userType === 'SELLER' && (
+              <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
+            )}
+
+            {user && (
+              <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
+            )}
           </Nav>
 
           <div className="ml-auto">
@@ -43,11 +51,6 @@ function Header() {
               <Button className="rounded-pill" variant="outline-primary" style={{ marginTop: '10px', height: '40px' }} onClick={handleLogout}>
                 Logout
               </Button>
-              <Link href="/profile" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Profile</Link>
-              {user.userType === 'SELLER' &&
-                (
-                  <Link href="/postAd" style={{ textDecoration: 'none', color: 'white', margin: '0 10px', fontFamily: 'Arial' }}>Post your AD</Link>
-                )}
             </div>
           ) : (
             <div>
