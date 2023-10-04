@@ -10,20 +10,16 @@ import { useState } from 'react'
 export default function Home({ products }) {
 
   const [sellerProducts, setSellerProducts] = useState([])
-  console.log(products);
 
   const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
   if (user && user.userType === 'SELLER') {
     axios.get(`${baseUrl}/products/search/findBySellerId?id=${user.id}`)
       .then((response) => {
         const userProducts = response.data._embedded.products;
-        console.log(userProducts);
         if (user && user.userType === 'SELLER') {
           axios.get(`${baseUrl}/products/search/findBySellerId?id=${user.id}`)
             .then((response) => {
               const userProducts = response.data._embedded.products;
-              console.log(userProducts);
-              console.log(products);
               const filteredProducts = products.filter((product) =>
                 userProducts.find((userProduct) =>
                   userProduct._links.product.href === product._links.product.href

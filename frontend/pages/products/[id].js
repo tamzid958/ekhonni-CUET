@@ -76,11 +76,9 @@ const ProductDetails = ({ seller, product }) => {
       console.error('Error fetching bids:', error);
     }
   };
-  console.log(buyers);
 
   const acceptBid = async (url) => {
     try {
-      console.log(url);
       await axios.patch(`${url}`, { status: 'accepted' });
       fetchBids();
     } catch (error) {
@@ -96,7 +94,7 @@ const ProductDetails = ({ seller, product }) => {
       console.error('Error accepting bid:', error);
     }
   };
-  console.log(bids);
+
   return (
     <Container>
       <Header />

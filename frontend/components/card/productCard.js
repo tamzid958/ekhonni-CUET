@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 
 function ProductCard({ product }) {
-  console.log(product);
   return (
     <div className="" >
       <Row className=" ">

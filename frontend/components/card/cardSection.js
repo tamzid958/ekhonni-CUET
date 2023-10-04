@@ -1,7 +1,6 @@
 import ProductCard from './productCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function CardSection({ data }) {
-  console.log(data);
 
   return (
     <div className='p-5'>
