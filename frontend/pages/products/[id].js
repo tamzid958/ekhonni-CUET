@@ -75,17 +75,17 @@ const ProductDetails = ({ seller, product }) => {
         }
         const fetchedBids = response.data._embedded.biddings;
         if (fetchedBids.length > 0) {
-          const buyerLinks = fetchedBids.map(bid => bid._links.buyer.href);
-          const buyerPromises = buyerLinks.map(buyerLink => axios.get(buyerLink));
-          Promise.all(buyerPromises)
-            .then(buyerResponses => {
-              const buyersData = buyerResponses.map(response => response.data);
-              buyersData.forEach(buyer => finalBuyers.push(buyer));
-              setBuyers(finalBuyers);
-            })
-            .catch(error => {
-              console.error('Error fetching buyers:', error);
-            });
+          for (const bid of fetchedBids) {
+            const buyerLink = bid._links.buyer.href;
+            try {
+              const buyerResponse = await axios.get(buyerLink);
+              const buyerData = buyerResponse.data;
+              finalBuyers.push(buyerData);
+            } catch (error) {
+              console.error('Error fetching buyer:', error);
+            }
+          }
+          setBuyers(finalBuyers);
         }
         setBids(fetchedBids);
       }
@@ -180,7 +180,7 @@ const ProductDetails = ({ seller, product }) => {
                         <span>Rejected</span>
                       ) : (
                         <>
-                          <Button variant="primary" onClick={acceptBid(bid._links.bidding.href)}>
+                          <Button variant="primary" onClick={()=>acceptBid(bid._links.bidding.href)}>
                             Accept
                           </Button>{' '}
                           <Button

@@ -39,7 +39,9 @@ function ProductCard({ product }) {
 
                 <Card.Body>
                 <div className='btn btn-medium btn-success text-decoration: none' >
-                    <Link href={`/products/${singleProduct._links.product.href.split('/')[singleProduct._links.product.href.split('/').length - 1]}`}>Product Details</Link>
+                    <Link href={`/products/${singleProduct._links.product.href.split('/')[singleProduct._links.product.href.split('/').length - 1]}`} style={{
+                      color:'white'
+                    }}>Product Details</Link>
                   </div>
                 </Card.Body>
 
