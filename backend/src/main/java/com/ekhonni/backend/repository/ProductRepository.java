@@ -12,4 +12,5 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findAllByCategoryContains(String category);
+    List<Product> findBySellerId(Long id);
 }
