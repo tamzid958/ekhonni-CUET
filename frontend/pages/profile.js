@@ -3,8 +3,10 @@ import styles from '../styles/Home.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Header from '../components/header';
+import dynamic from "next/dynamic";
+import { baseUrl } from '../utils/baseUrl';
 
-export default function Profile() {
+ function Profile() {
   const [storedUser, setStoredUser] = useState({});
   const [updatingMobileNumber, setUpdatingMobileNumber] = useState('');
   const [updatingAddress, setUpdatingAddress] = useState('');
@@ -12,9 +14,10 @@ export default function Profile() {
 
 
   useEffect(() => {
-    const storedUserJSON = localStorage.getItem('user');
-    const storedUserData = JSON.parse(storedUserJSON);
-    let user_id = storedUserData._links.user.href.split('/')[storedUserData._links.user.href.split('/').length - 1];
+    //const storedUserJSON = localStorage.getItem('user');
+    const storedUserData = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
+    //const storedUserData = JSON.parse(storedUserJSON);
+    let user_id = storedUserData.id;
     console.log(storedUserData);
 
     setStoredUser(storedUserData);
@@ -171,3 +174,4 @@ export default function Profile() {
     </div>
   );
 }
+export default dynamic (() => Promise.resolve(Profile), {ssr: false})

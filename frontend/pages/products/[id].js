@@ -5,6 +5,7 @@ import Footer from '../../components/footer';
 import Header from '../../components/header';
 import axios from 'axios';
 import { baseUrl } from '../../utils/baseUrl';
+import dynamic from "next/dynamic";
 
 const ProductDetails = ({ seller, product }) => {
   const prod_id = product._links.product.href.split('/')[product._links.product.href.split('/').length - 1];
@@ -42,9 +43,7 @@ const ProductDetails = ({ seller, product }) => {
         fetchBids();
       }
       else {
-        // const response = await axios.get(`${baseUrl}/biddings`);
-        // const newBid = response.data;
-        // console.log(newBid);
+
         const bid_id = bids[0]._links.bidding.href.split('/')[bids[0]._links.bidding.href.split('/').length - 1];
         const updateBidUrl = `${baseUrl}/biddings/${bid_id}`;
         await axios.patch(updateBidUrl, {
@@ -81,9 +80,7 @@ const ProductDetails = ({ seller, product }) => {
           Promise.all(buyerPromises)
             .then(buyerResponses => {
               const buyersData = buyerResponses.map(response => response.data);
-              // Push each buyer data into finalBuyers array
               buyersData.forEach(buyer => finalBuyers.push(buyer));
-              // Set the buyers state to finalBuyers
               setBuyers(finalBuyers);
             })
             .catch(error => {
@@ -208,12 +205,12 @@ const ProductDetails = ({ seller, product }) => {
   );
 };
 
-export default ProductDetails;
+export default dynamic (() => Promise.resolve(ProductDetails), {ssr: false})
 
 
 
 
-const getProductsWithoutPaginaton = async () => {
+const getProducts = async () => {
 
   const response = await axios.get(`${baseUrl}/products`);
   let data = response.data._embedded;
@@ -248,7 +245,7 @@ const getOneProduct = async (id) => {
 
 export async function getStaticPaths() {
 
-  const { data } = await getProductsWithoutPaginaton()
+  const { data } = await getProducts()
 
   const paths = data.products.map((prod) => ({
     params: { id: prod._links.product.href.split('/')[prod._links.product.href.split('/').length - 1] }
