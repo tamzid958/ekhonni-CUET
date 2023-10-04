@@ -5,10 +5,43 @@ import CarouselSection from '../components/carousel/carouselSection'
 import axios from 'axios'
 import React from 'react'
 import { baseUrl } from '../utils/baseUrl'
+import { useState } from 'react'
 
 
 export default function Home({ products }) {
 
+  const [sellerProducts, setSellerProducts] = useState([])
+  console.log(products);
+
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
+  if (user && user.userType === 'SELLER') {
+    axios.get(`http://localhost:8080/products/search/findBySellerId?id=${user.id}`)
+      .then((response) => {
+        const userProducts = response.data._embedded.products;
+        console.log(userProducts);
+        if (user && user.userType === 'SELLER') {
+          axios.get(`http://localhost:8080/products/search/findBySellerId?id=${user.id}`)
+            .then((response) => {
+              const userProducts = response.data._embedded.products;
+              console.log(userProducts);
+              console.log(products);
+              const filteredProducts = products.filter((product) =>
+                userProducts.find((userProduct) =>
+                  userProduct._links.product.href === product._links.product.href
+                )
+              );
+              setSellerProducts(filteredProducts);
+
+            })
+            .catch((error) => {
+              console.error('Error fetching user products:', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user products:', error);
+      });
+  }
 
   return (
     <div className="container">
@@ -17,7 +50,18 @@ export default function Home({ products }) {
       <CarouselSection />
 
       <div className="container">
-        <CardSection data={products} />
+        {
+          sellerProducts.length > 0 ? (
+            <div>
+              <h3 className="text-center">Your Products</h3>
+              <CardSection data={sellerProducts} />
+            </div>
+          ) : (
+            <><h3 className="text-center">All Products</h3><CardSection data={products} /></>
+          )
+
+
+        }
       </div>
       <Footer />
 
