@@ -5,39 +5,39 @@ import CarouselSection from '../components/carousel/carouselSection'
 import axios from 'axios'
 import React from 'react'
 import { baseUrl } from '../utils/baseUrl'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import dynamic from "next/dynamic";
 
 function Home({ products }) {
 
-  const [sellerProducts, setSellerProducts] = useState([])
+  const [shownProducts, setshownProducts] = useState([])
 
   const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
-  if (user && user.userType === 'SELLER') {
-    axios.get(`${baseUrl}/products/search/findBySellerId?id=${user.id}`)
-      .then((response) => {
-        const userProducts = response.data._embedded.products;
-        if (user && user.userType === 'SELLER') {
-          axios.get(`${baseUrl}/products/search/findBySellerId?id=${user.id}`)
-            .then((response) => {
-              const userProducts = response.data._embedded.products;
-              const filteredProducts = products.filter((product) =>
-                userProducts.find((userProduct) =>
-                  userProduct._links.product.href === product._links.product.href
-                )
-              );
-              setSellerProducts(filteredProducts);
+  console.log(user);
+  
+  useEffect(() => {
+    if (user && user.userType === 'SELLER') {
+      axios
+        .get(`${baseUrl}/products/search/findBySellerId?id=${user.id}`)
+        .then((response) => {
+          const userProducts = response.data._embedded.products;
+          const filteredProducts = products.filter((p) =>
+            userProducts.find((userProduct) =>
+              userProduct._links.product.href === p._links.product.href
+            )
+          );
+          setshownProducts(filteredProducts);
+        })
+        .catch((error) => {
+          console.error('Error fetching user products:', error);
+        });
+    } else {
+      setshownProducts(products);
+    }
+  }, []); 
+      
+      
 
-            })
-            .catch((error) => {
-              console.error('Error fetching user products:', error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching user products:', error);
-      });
-  }
 
   return (
     <div className="container">
@@ -47,16 +47,12 @@ function Home({ products }) {
 
       <div className="container">
         {
-          sellerProducts.length > 0 ? (
+          shownProducts.length > 0 &&(
             <div>
-              <h3 className="text-center">Your Products</h3>
-              <CardSection data={sellerProducts} />
+              <h3 className="text-center"> Products</h3>
+              <CardSection data={shownProducts} />
             </div>
-          ) : (
-            <><h3 className="text-center">All Products</h3><CardSection data={products} /></>
           )
-
-
         }
       </div>
       <Footer />

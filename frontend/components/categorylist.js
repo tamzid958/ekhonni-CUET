@@ -21,7 +21,7 @@ const ProductCategoryList = () => {
       <ul >
         {categories.map((category, index) => (
           <li className='ab' key={index}>
-              {/* <a>{category}</a> */}
+              <a>{category}</a>
           </li>
         ))}
       </ul>
