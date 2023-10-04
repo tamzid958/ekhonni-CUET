@@ -29,8 +29,8 @@ const ProductDetails = ({ seller, product }) => {
     e.preventDefault();
     const bidData = {
       bidPrice: bidAmount,
-      buyer: `http://localhost:8080/users/${user.id}`,
-      product: `http://localhost:8080/products/${prod_id}`,
+      buyer: `${baseUrl}/users/${user.id}`,
+      product: `${baseUrl}/products/${prod_id}`,
     };
     try {
       await axios.post(`${baseUrl}/biddings`, bidData);
@@ -48,11 +48,11 @@ const ProductDetails = ({ seller, product }) => {
         let response;
         if (user.userType === 'SELLER') {
           response = await axios.get(
-            `http://localhost:8080/biddings/search/findByProductId?id=${prod_id}`
+            `${baseUrl}/biddings/search/findByProductId?id=${prod_id}`
           );
         } else {
           response = await axios.get(
-            `http://localhost:8080/biddings/search/findByProductIdAndBuyerId?p_id=${prod_id}&b_id=${user.id}`
+            `${baseUrl}/biddings/search/findByProductIdAndBuyerId?p_id=${prod_id}&b_id=${user.id}`
           );
         }
         const fetchedBids = response.data._embedded.biddings;
