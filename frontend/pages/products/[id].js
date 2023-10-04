@@ -1,33 +1,39 @@
-import React from 'react';
-import { Container, Row, Col, Image, Card, Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Image, Form, Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../utils/baseUrl';
 
-
-
-const ProductDetails = ({ productName, price, seller, contact, description, category, productDescription ,biddings,product}) => {
-  console.log(seller);
-  let prod_id=product._links.product.href.split('/')[product._links.product.href.split('/').length-1];
-  const storedUser=typeof window!=='undefined'?localStorage.getItem('user'):null;
+const ProductDetails = ({ seller, product }) => {
+  const prod_id = product._links.product.href.split('/')[product._links.product.href.split('/').length - 1];
+  const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
   const user = JSON.parse(storedUser);
   const [bidAmount, setBidAmount] = useState('');
-  const [bids,setBids]=useState([]);
-  console.log(bidAmount);
+  let [bids, setBids] = useState([]);
+  const [isSeller, setIsSeller] = useState(false);
+  const [buyers, setBuyers] = useState(null);
+
+  useEffect(() => {
+    fetchBids();
+    if (user && user.userType === 'SELLER') {
+      setIsSeller(true);
+    }
+  }, []);
+
   const handleBidSubmit = async (e) => {
+    if (!user) {
+      return alert('Please login to place a bid');
+    }
     e.preventDefault();
     const bidData = {
-      bidPrice: bidAmount, 
-      buyer: `http://localhost:8080/users/${user.id}`, 
-      product: `http://localhost:8080/products/${prod_id}`, 
+      bidPrice: bidAmount,
+      buyer: `http://localhost:8080/users/${user.id}`,
+      product: `http://localhost:8080/products/${prod_id}`,
     };
-
     try {
       await axios.post(`${baseUrl}/biddings`, bidData);
-  
       alert('Bid placed successfully!');
       fetchBids();
     } catch (error) {
@@ -35,62 +41,66 @@ const ProductDetails = ({ productName, price, seller, contact, description, cate
       alert('Error placing bid. Please try again later.');
     }
   };
+  let finalBuyers = [];
+  const fetchBids = async () => {
+    try {
+      if (user) {
+        let response;
+        if (user.userType === 'SELLER') {
+          response = await axios.get(
+            `http://localhost:8080/biddings/search/findByProductId?id=${prod_id}`
+          );
+        } else {
+          response = await axios.get(
+            `http://localhost:8080/biddings/search/findByProductIdAndBuyerId?p_id=${prod_id}&b_id=${user.id}`
+          );
+        }
+        const fetchedBids = response.data._embedded.biddings;
 
-console.log(prod_id);
-
-
-
-
-
-const fetchBids = async () => {
-  try {
-
- 
-    
-
-    if(user)
-    {
-      if(user.userType=="SELLER") {
-        var response = await axios.get(
-          `http://localhost:8080/biddings/search/findByProductId?id=${prod_id}`
-        );
+        if (fetchedBids.length > 0) {
+          for (const bid of fetchedBids) {
+            const buyerLink = bid._links.buyer.href;
+            try {
+              const buyerResponse = await axios.get(buyerLink);
+              const buyerData = buyerResponse.data;
+              finalBuyers.push(buyerData);
+            } catch (error) {
+              console.error('Error fetching buyer:', error);
+            }
+          }
+          setBuyers(finalBuyers);
+        }
+        setBids(fetchedBids);
       }
-      else{
-
-          var response = await axios.get(
-          `http://localhost:8080/biddings/search/findByProductIdAndBuyerId?p_id=${prod_id}&b_id=${user.id}`
-        );
-      }
+    } catch (error) {
+      console.error('Error fetching bids:', error);
     }
+  };
+  console.log(buyers);
 
-  
-    console.log(response.data);
+  const acceptBid = async (url) => {
+    try {
+      console.log(url);
+      await axios.patch(`${url}`, { status: 'accepted' });
+      fetchBids();
+    } catch (error) {
+      console.error('Error accepting bid:', error);
+    }
+  };
 
-    const fetchedBids = response.data._embedded.biddings;
-    setBids(fetchedBids); 
-    return fetchedBids; 
-  } catch (error) {
-    console.error('Error fetching bids:', error);
-    return []; 
-  }
-};
-
-
-
-
-
-useEffect(() => {
-  fetchBids().then((bidsData) => {
-    console.log(bidsData); 
-  });
-}, []);
-
-
+  const rejectBid = async (url) => {
+    try {
+      await axios.patch(`${url}`, { status: 'rejected' });
+      fetchBids();
+    } catch (error) {
+      console.error('Error accepting bid:', error);
+    }
+  };
+  console.log(bids);
   return (
     <Container>
       <Header />
       <Row>
-        {}
         <Col md={6}>
           <Image
             src="https://www.deshify.com/images/thumbs/0015421_lige-men-watches-waterproof-multifunction-wrist-watch.jpeg"
@@ -98,51 +108,84 @@ useEffect(() => {
             fluid
           />
         </Col>
-
-        {}
         <Col md={6}>
-          <h2>{productName}</h2>
           <p>Product Name: {product.name}</p>
           <p>Category: {product.category}</p>
           <p>Price: {product.price}</p>
           <p>Seller: {seller.name}</p>
           <p>Contact: {seller.phoneNumber}</p>
           <h3>Description: {product.description}</h3>
-          <p>{description}</p>
         </Col>
       </Row>
 
-      <Row>
-        <Col>
-          <h3>Seller</h3>
-          <Form>
-            <Button variant="primary" type="submit">
-              Accepted
-            </Button>
-            <Button variant="primary" type="submit" style={{ marginLeft: '10px' }}>
-              Rejected
-            </Button>
-          </Form>
-
-        </Col>
-      </Row>
-
-      {}
-      <Row>
-        <Col>
-          <h3>Place a Bid</h3>
-          <Form>
-            <Form.Group controlId="bidForm">
-              <Form.Label>Your Bid</Form.Label>
-              <Form.Control type="text" placeholder="Enter your bid amount" onChange={(e)=>setBidAmount(e.target.value)} />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={(e)=>handleBidSubmit(e)}>
-              Place Bid
-            </Button>
-            <div>Current Bid: {bids.map(b=>b.bidPrice)}</div>
-          </Form>
-        </Col>
-      </Row>
+      {!isSeller && (
+        <Row>
+          <Col>
+            <h3>Place a Bid</h3>
+            <Form>
+              <Form.Group controlId="bidForm">
+                <Form.Label>Your Bid</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your bid amount"
+                  onChange={(e) => setBidAmount(e.target.value)}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" onClick={handleBidSubmit}>
+                Place Bid
+              </Button>
+              <div>Current Bid: {bids.map((b) => b.bidPrice)}</div>
+              <span>Status:{bids.status}</span>
+            </Form>
+          </Col>
+        </Row>
+      )}
+      {isSeller && bids && bids.length > 0 && (
+        <Row>
+          <Col>
+            <h3>Bid History</h3>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Bidder</th>
+                  <th>Price</th>
+                  <th>Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bids.map((bid, index) => (
+                  <tr key={bid.id}>
+                    <td>{buyers[index].name}</td>
+                    <td>{bid.bidPrice}</td>
+                    <td>{buyers[index].phoneNumber}</td>
+                    <td>
+                      {bid.status === 'accepted' ? (
+                        <span>Accepted</span>
+                      ) : bid.status === 'rejected' ? (
+                        <span>Rejected</span>
+                      ) : (
+                        <>
+                          <Button variant="primary" onClick={() => acceptBid(bid._links.bidding.href)}>
+                            Accept
+                          </Button>{' '}
+                          <Button
+                            variant="primary"
+                            style={{ backgroundColor: 'red' }}
+                            onClick={() => rejectBid(bid._links.bidding.href)}
+                          >
+                            Reject
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      )}
       <Footer />
     </Container>
   );
@@ -150,23 +193,26 @@ useEffect(() => {
 
 export default ProductDetails;
 
-const getProductsWithoutPaginaton = async () =>{
-  
-    const response = await axios.get(`${baseUrl}/products`);
-    let data = response.data._embedded;
 
 
-  return {data}
+
+const getProductsWithoutPaginaton = async () => {
+
+  const response = await axios.get(`${baseUrl}/products`);
+  let data = response.data._embedded;
+
+
+  return { data }
 }
 
-const getSellerInfo=async(id)=>{
+const getSellerInfo = async (id) => {
   try {
     const response = await axios.get(`${baseUrl}/products/${id}/seller`);
     const sellerData = response.data;
     return { sellerData };
   } catch (error) {
     console.error('Error fetching product data:', error);
-    return { sellerData: null }; 
+    return { sellerData: null };
   }
 }
 
@@ -178,38 +224,39 @@ const getOneProduct = async (id) => {
     return { data };
   } catch (error) {
     console.error('Error fetching product data:', error);
-    return { data: null }; 
+    return { data: null };
   }
 };
 
 
-export async function getStaticPaths(){
+export async function getStaticPaths() {
 
-  const {data} = await getProductsWithoutPaginaton()
-  
-  const paths = data.products.map((prod )=> ({
-     params: { id:prod._links.product.href.split('/')[prod._links.product.href.split('/').length-1] }
+  const { data } = await getProductsWithoutPaginaton()
+
+  const paths = data.products.map((prod) => ({
+    params: { id: prod._links.product.href.split('/')[prod._links.product.href.split('/').length - 1] }
   }))
 
-return { paths, fallback: false }
+  return { paths, fallback: false }
 
 }
 
 export async function getStaticProps({ params }) {
   try {
     const { data } = await getOneProduct(parseInt(params.id));
-    const {sellerData}=await getSellerInfo(parseInt(params.id))
+    const { sellerData } = await getSellerInfo(parseInt(params.id))
     const product = data;
-    const seller=sellerData; 
+    const seller = sellerData;
 
     return {
-      props: { product,seller },
+      props: { product, seller },
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
     return {
-      props: { product: null }, 
+      props: { product: null },
     };
   }
 }
+
 

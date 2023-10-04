@@ -25,4 +25,8 @@ public class Bidding extends BaseEntity<Long> implements Serializable {
     @ManyToOne @JoinColumn(name = "product")
     @NotNull
     private Product product;
+
+    @Column(name = "status")
+    private String status;
+
 }
