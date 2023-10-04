@@ -17,6 +17,9 @@ body{
   border-radius: 10px;
   padding: 10px;
 }
+.custom-border {
+  border-radius: 10px; 
+}
 
 .card {
   border-radius: 10px;
